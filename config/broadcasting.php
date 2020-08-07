@@ -27,6 +27,10 @@ return [
     | each available type of connection are provided inside this array.
     |
     */
+    // 'options' => [
+    //   'cluster' => 'ap1',
+    //   'useTLS' => true
+    // ],
 
     'connections' => [
 
@@ -38,6 +42,8 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'encrypted' => true,
+                'cluster' => 'ap1',
+                'useTLS' => true
             ],
         ],
 

@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('pusher','WebhookController@pusher');
+Route::get('sendPusher','WebhookController@sendPusher');
 
 
 

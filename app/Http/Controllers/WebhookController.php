@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Events\MyEvent;
 // use pimax\FbBotApp;
 // use pimax\Messages\Message;
 use Illuminate\Support\Facades\Input;
@@ -32,7 +33,7 @@ class WebhookController extends Controller
         $json = json_decode($data, true);
         \Log::info($json);
         if(isset($json['entry'][0]['messaging'])){
-        
+            $check = event(new MyEvent($json));
         }
         // echo $access_token;
 
@@ -45,5 +46,12 @@ class WebhookController extends Controller
 
     public function pusher(){
         return view('pusher');
+    }
+
+    public function sendPusher(){
+        echo "terkirim";
+        $check = event(new MyEvent('hello world'));
+        // dd($check);
+        
     }
 }
