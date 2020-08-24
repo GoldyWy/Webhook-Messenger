@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Events\MyEvent;
+use App\Events\EventSend;
 // use pimax\FbBotApp;
 // use pimax\Messages\Message;
 use Illuminate\Support\Facades\Input;
@@ -23,7 +24,7 @@ class WebhookController extends Controller
             exit;
         }
 
-        $access_token = "EAAD9Fu2Q6iIBAGr3F3c0r2fhFqWCXCTc8i5YyiSwZAODfESI4jgAhVT5xWlPCAkLGKZCyTojgXdq0KTlV2XfYs2IHSR9LydkBXMud2IyoscK1mHW1aiGQmPDVAZBeSsZAEEhimxTu66w7KYw71dEcY9kc0FpOmVra1v8Ck9ZBwgZDZD";
+        // $access_token = "EAAD9Fu2Q6iIBAGr3F3c0r2fhFqWCXCTc8i5YyiSwZAODfESI4jgAhVT5xWlPCAkLGKZCyTojgXdq0KTlV2XfYs2IHSR9LydkBXMud2IyoscK1mHW1aiGQmPDVAZBeSsZAEEhimxTu66w7KYw71dEcY9kc0FpOmVra1v8Ck9ZBwgZDZD";
 
         $data = $request->getContent();
         // 
@@ -31,7 +32,7 @@ class WebhookController extends Controller
         // Storage::disk('local')->put('data.txt', $data);
 
         $json = json_decode($data, true);
-        \Log::info($json);
+        // \Log::info($json);
         if(isset($json['entry'][0]['messaging'])){
             $check = event(new MyEvent($json));
         }
@@ -48,10 +49,12 @@ class WebhookController extends Controller
         return view('pusher');
     }
 
-    public function sendPusher(){
-        echo "terkirim";
-        $check = event(new MyEvent('hello world'));
+    public function sendPusher(Request $request){
+        // echo "terkirim";
+        $check = event(new EventSend($request->getContent()));
         // dd($check);
+
+        return response()->json('Success');
         
     }
 }

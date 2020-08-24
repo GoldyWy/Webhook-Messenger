@@ -20,3 +20,20 @@ use Illuminate\Http\Request;
 
 Route::get('webhook', 'WebhookController@index');
 Route::post('webhook', 'WebhookController@index');
+Route::post('sendPusher', 'WebhookController@sendPusher');
+
+Route::group(['prefix' => '/articles'], function () {
+    Route::get('/', 'ArticleController@getArticle');
+    Route::get('/create', 'ArticleController@create');
+    Route::post('/store', 'ArticleController@store');
+    Route::get('/{id}/delete', 'ArticleController@destroy');
+});
+
+Route::group(['prefix' => '/categories'], function () {
+    Route::get('/', 'CategoryController@index');
+    Route::post('/store', 'CategoryController@store');
+    Route::get('/getCategories', 'CategoryController@getCategories');
+    Route::get('/{id}/delete', 'CategoryController@destroy');
+});
+
+

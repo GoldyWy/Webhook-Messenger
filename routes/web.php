@@ -18,5 +18,8 @@ Route::get('/', function () {
 Route::get('pusher','WebhookController@pusher');
 Route::get('sendPusher','WebhookController@sendPusher');
 
-
+Route::group(['prefix' => '/webview'], function () {
+    Route::get('/{category}', 'WebviewController@list');
+    Route::get('/{category}/{article}', 'WebviewController@detail');
+});
 
